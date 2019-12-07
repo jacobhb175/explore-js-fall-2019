@@ -195,7 +195,7 @@
                     this.y = height - 35;
                 }
                 else if (this.y > height - 35) {
-                    this.y = 35
+                    this.y = 35;
                 }
             }
         }
@@ -206,27 +206,28 @@
             switch(e.which) {
                 case 37: // left
                     pacman.dy = 0;
-                    pacman.dx = pacman.dx - 2;
+                    pacman.dx = -5;
                     break;
                     
                 case 38: // up
                     pacman.dx = 0;
-                    pacman.dy = pacman.dy - 2;
+                    pacman.dy = -5;
                     break;
 
                 case 39: // right
                     pacman.dy = 0;
-                    pacman.dx = pacman.dx + 2;
+                    pacman.dx = 5;
                     break;
 
                 case 40: // down
                     pacman.dx = 0;
-                    pacman.dy = pacman.dy + 2;
+                    pacman.dy = 5;
                 break;
                 default: return;
             }
             e.preventDefault();
         });
+
         function displayFrame() {
             var canvas = document.getElementById('tutorial');
             if (canvas.getContext) {
@@ -235,7 +236,9 @@
             }
             pacman.updatePosition(canvas.width, canvas.height);
         }
+
         var animationId;
+
         function draw() {
             // animationId = setTimeout(draw, 100);
             animationId = requestAnimationFrame(draw, 100);
