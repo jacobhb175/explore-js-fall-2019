@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+   		<meta charset="utf-8" />
+   		<title>Canvas tutorial</title>
+   		<script type="text/javascript">
+			pacman = {
+            	x: 50,
+            	y: 50,
+            	dx: 1,
+            	dy: 1,
+            	display: function(ctx) {},
+            	updatePosition: function(width, height) {}
+        	};
+
+        	function pac(x, y, dx, dy, color) {
+            	this.x = x;
+            	this.y = y;
+            	this.dx = dx;
+            	this.dy = dy;
+
+            	this.display = function(ctx) {
+            		ctx.beginPath();
+                	ctx.arc(this.x, this.y, 30, Math.PI * 0.5, Math.PI * 1.5, false);
+                	ctx.strokeStyle = color;
+                	ctx.closePath();
+                	ctx.stroke();
+                	ctx.fillStyle = color;
+                	ctx.fill();
+            	}
+
+            	this.updatePosition = function(width, height) {
+                	this.x = this.x + this.dx;
+                	this.y = this.y + this.dy;
+
+                	if (this.x < 30 || this.x > width) { // Reverse
+                    	this.dx = 0
+                	}
+                	if (this.y < 30 || this.y > height - 30) { // Reverse
+                    	this.dy = 0
+                	}
+            	}
+        	}
+
+        	var pacman = new pac(50, 50, 0, 0, "yellow");
+
+        	$(document).keydown(function(e) {
+    			switch(e.which) {
+        			case 37: // left
+                    pacman.dy = 0;
+        			pacman.dx = pacman.dx - 2;
+                    ctx.clearRect(0,0,1000,500);
+        			break;
+
+        			case 38: // up
+                    pacman.dx = 0;
+        			pacman.dy = pacman.dy - 2;
+                    ctx.clearRect(0,0,1000,500);
+        			break;
+
+        			case 39: // right
+                    pacman.dy = 0;
+        			pacman.dx = pacman.dx + 2;
+                    ctx.clearRect(0,0,1000,500);
+        			break;
+
+        			case 40: // down
+                    pacman.dx = 0;
+        			pacman.dy = pacman.dy + 2;
+                    ctx.clearRect(0,0,1000,500);
+        			break;
+
+        			default: return;
+    			}
+    			e.preventDefault();
+			});
+
+        	function displayFrame() {
+            	var canvas = document.getElementById('tutorial');
+            	if (canvas.getContext) {
+            	    var ctx = canvas.getContext('2d');
+               		pacman.display(ctx);
+            	}
+            	pacman.updatePosition(canvas.width, canvas.height);
+        	}
+
+        	var animationId;
+
+        	function draw() {
+            	// animationId = setTimeout(draw, 100);
+            	animationId = requestAnimationFrame(draw, 100);
+            	displayFrame();
+        	}
+   		</script>
+   		<style type="text/css">
+       		canvas {
+           		border: 1px solid black;
+           		width: 100%;
+           		height: 100%;
+       		}
+   		</style>
+	</head>
+	<body onload="draw();">
+   		<canvas id="tutorial" width="1000" height="500"></canvas>
+	</body>
+</html>

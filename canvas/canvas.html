@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Title-->
+		<title>Canvas</title>
+	</head>
+	<body>
+
+		<style>
+			canvas {
+				border: 1px solid #bada55;
+			}
+		</style>
+
+		<canvas id="game" width="500" height="500"></canvas>
+
+		<script>
+			let canvas = document.getElementById("game");
+			let context = canvas.getContext("2d");
+
+			context.fillStyle = "purple";
+			context.fillRect(0,0,400,400);
+
+			context.fillStyle = "rgba(255,127,127,0.3)";
+			context.fillRect(50,50,200,450);
+
+			context.font = "30px Zapfina";
+			context.fillStyle = "white";
+			context.fillText("Hello World", 20, 50)
+		</script>
+	</body>
+</html>
